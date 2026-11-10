@@ -126,16 +126,16 @@
         ];
 
         $navLinks = [
-            ['label' => 'Home', 'href' => '#home'],
-            ['label' => 'About Us', 'href' => '#about'],
-            ['label' => 'Services', 'href' => '#services'],
-            ['label' => 'Why Andromeda', 'href' => '#why-us'],
-            ['label' => 'Contact', 'href' => '#contact'],
+            ['label' => 'Home', 'href' => '#home', 'section' => 'home', 'icon' => 'house'],
+            ['label' => 'About Us', 'href' => '#about', 'section' => 'about', 'icon' => 'info'],
+            ['label' => 'Services', 'href' => '#services', 'section' => 'services', 'icon' => 'stethoscope'],
+            ['label' => 'Why Andromeda', 'href' => '#why-us', 'section' => 'why-us', 'icon' => 'heart-pulse'],
+            ['label' => 'Contact', 'href' => '#contact', 'section' => 'contact', 'icon' => 'phone'],
         ];
     @endphp
 
     <main x-data="{ 
-        menuOpen: false, 
+        activeMobileNav: 'home',
         selectedService: '', 
         activeCommitment: 0, 
         activeFaq: 0, 
@@ -190,7 +190,7 @@
     }" x-init="initCarousel()">
 
         <!-- ANNOUNCEMENT BAR -->
-        <div class="bg-[#145C40] px-5 py-3 text-white">
+        {{-- <div class="bg-[#145C40] px-5 py-3 text-white">
             <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs sm:justify-between">
                 <p class="flex items-center gap-2 text-white/85">
                     <span class="h-2 w-2 animate-pulse rounded-full bg-[#91E3B6]"></span>
@@ -203,12 +203,12 @@
                     <i data-lucide="arrow-up-right" class="w-3 h-3 inline"></i>
                 </a>
             </div>
-        </div>
+        </div> --}}
 
         <!-- NAVIGATION -->
         <header class="sticky top-0 z-50 border-b border-[#172B23]/5 bg-white/95 backdrop-blur-xl">
             <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-                <a href="#home" @click="menuOpen = false" class="flex shrink-0 items-center gap-3">
+                <a href="#home" class="flex shrink-0 items-center gap-3">
                     <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#145C40] text-white shadow-lg shadow-[#145C40]/15">
                         <i data-lucide="heart-pulse" class="w-7 h-7"></i>
                     </div>
@@ -234,42 +234,23 @@
                     </a>
                 </div>
 
-                <!-- Mobile menu trigger -->
-                <button @click="menuOpen = !menuOpen" :aria-expanded="menuOpen" aria-label="Toggle navigation" class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#EAF5EF] text-[#145C40] transition hover:bg-[#D8EDE1] lg:hidden">
-                    <template x-if="!menuOpen">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </template>
-                    <template x-if="menuOpen">
-                        <i data-lucide="x" class="w-6 h-6"></i>
-                    </template>
-                </button>
             </nav>
-
-            <!-- Mobile drawer -->
-            <div class="grid transition-all duration-300 ease-in-out lg:hidden" :class="menuOpen ? 'grid-rows-[1fr] opacity-100' : 'pointer-events-none grid-rows-[0fr] opacity-0'">
-                <div class="overflow-hidden">
-                    <div class="border-t border-gray-100 bg-white px-5 pb-7 pt-4">
-                        <div class="flex flex-col gap-1">
-                            @foreach($navLinks as $link)
-                                <a href="{{ $link['href'] }}" @click="menuOpen = false" class="rounded-xl px-4 py-3.5 text-sm font-semibold text-[#34483C] transition hover:bg-[#EAF5EF] hover:text-[#145C40]">
-                                    {{ $link['label'] }}
-                                </a>
-                            @endforeach
-                        </div>
-
-                        <a href="#appointment" @click="menuOpen = false" class="mt-4 flex items-center justify-center gap-2 rounded-xl bg-[#145C40] p-4 text-sm font-semibold text-white">
-                            Book an Appointment
-                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-                        </a>
-
-                        <div class="mt-5 flex items-center justify-center gap-2 text-xs text-gray-400">
-                            <i data-lucide="phone" class="w-3.5 h-3.5"></i>
-                            +234 701 955 7057
-                        </div>
-                    </div>
-                </div>
-            </div>
         </header>
+
+        <nav aria-label="Mobile navigation" class="fixed bottom-3 left-3 right-3 z-[60] rounded-full border border-white/10 bg-[#102F23] p-1.5 shadow-[0_12px_35px_rgba(16,47,35,0.3)] lg:hidden">
+            <div class="flex items-center justify-between gap-1">
+                @foreach($navLinks as $link)
+                    <a href="{{ $link['href'] }}"
+                       @click="activeMobileNav = '{{ $link['section'] }}'"
+                       :class="activeMobileNav === '{{ $link['section'] }}' ? 'bg-[#A9E6C0] text-[#102F23] shadow-sm' : 'text-white/80 hover:bg-[#D8F3E2] hover:text-[#145C40]'"
+                       class="group flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-full px-1 py-2 transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A9E6C0]"
+                       aria-label="{{ $link['label'] }}">
+                        <i data-lucide="{{ $link['icon'] }}" class="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5"></i>
+                        <span class="whitespace-nowrap text-[8px] font-semibold leading-none sm:text-[9px]">{{ $link['label'] }}</span>
+                    </a>
+                @endforeach
+            </div>
+        </nav>
 
        @include('components.header')
 
@@ -642,7 +623,7 @@
         </section>
 
         <!-- FOOTER -->
-        <footer id="contact" class="bg-[#102F23] text-white pt-20 pb-12">
+        <footer id="contact" class="bg-[#102F23] text-white pt-20 pb-28 lg:pb-12">
             <div class="mx-auto max-w-7xl px-5 lg:px-8">
                 <div class="grid gap-12 lg:grid-cols-4 sm:grid-cols-2">
                     <div>
