@@ -13,6 +13,35 @@
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .has-scroll-reveal [data-reveal] {
+            opacity: 0;
+            transform: translate3d(0, 24px, 0);
+            transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+            transition-delay: var(--reveal-delay, 0ms);
+        }
+
+        .has-scroll-reveal [data-reveal="left"] {
+            transform: translate3d(-28px, 0, 0);
+        }
+
+        .has-scroll-reveal [data-reveal="right"] {
+            transform: translate3d(28px, 0, 0);
+        }
+
+        .has-scroll-reveal [data-reveal].is-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .has-scroll-reveal [data-reveal] {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased text-[#172B23] bg-[#F8FAF8] overflow-x-hidden">
 
@@ -49,36 +78,42 @@
         $services = [
             [
                 'icon' => 'baby',
+                'image' => 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=85',
                 'title' => 'Paediatric Care',
                 'description' => 'Thoughtful medical care for children, supporting their growth, development and overall wellbeing.',
                 'category' => 'Family Care',
             ],
             [
                 'icon' => 'heart-pulse',
+                'image' => 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85',
                 'title' => 'Diabetic Care',
                 'description' => 'Ongoing support, monitoring and personalised care to help patients manage diabetes.',
                 'category' => 'Specialist Care',
             ],
             [
                 'icon' => 'heart-handshake',
+                'image' => 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=900&q=85',
                 'title' => 'Maternal Care',
                 'description' => 'Dedicated maternal healthcare throughout pregnancy, delivery and the postnatal journey.',
                 'category' => 'Family Care',
             ],
             [
                 'icon' => 'activity',
+                'image' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=85',
                 'title' => 'Physiotherapy',
                 'description' => 'Professional rehabilitation and physical therapy to support movement, recovery and mobility.',
                 'category' => 'Specialist Care',
             ],
             [
                 'icon' => 'stethoscope',
+                'image' => 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=85',
                 'title' => 'Internal Medicine',
                 'description' => 'Medical assessment, diagnosis and management of a wide range of adult health conditions.',
                 'category' => 'Specialist Care',
             ],
             [
                 'icon' => 'microscope',
+                'image' => 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=900&q=85',
                 'title' => 'Laboratory Services',
                 'description' => 'Medical laboratory investigations to support accurate diagnosis and informed healthcare.',
                 'category' => 'Diagnostics',
@@ -132,6 +167,10 @@
             ['label' => 'Why Andromeda', 'href' => '#why-us', 'section' => 'why-us', 'icon' => 'heart-pulse'],
             ['label' => 'Contact', 'href' => '#contact', 'section' => 'contact', 'icon' => 'phone'],
         ];
+
+        $mobileNavLinks = array_merge($navLinks, [
+            ['label' => 'Book Appointment', 'href' => '#appointment', 'section' => 'appointment', 'icon' => 'calendar-check'],
+        ]);
     @endphp
 
     <main x-data="{ 
@@ -239,7 +278,7 @@
 
         <nav aria-label="Mobile navigation" class="fixed bottom-3 left-3 right-3 z-[60] rounded-full border border-white/10 bg-[#102F23] p-1.5 shadow-[0_12px_35px_rgba(16,47,35,0.3)] lg:hidden">
             <div class="flex items-center justify-between gap-1">
-                @foreach($navLinks as $link)
+                @foreach($mobileNavLinks as $link)
                     <a href="{{ $link['href'] }}"
                        @click="activeMobileNav = '{{ $link['section'] }}'"
                        :class="activeMobileNav === '{{ $link['section'] }}' ? 'bg-[#A9E6C0] text-[#102F23] shadow-sm' : 'text-white/80 hover:bg-[#D8F3E2] hover:text-[#145C40]'"
@@ -280,7 +319,7 @@
 
         <!-- ABOUT -->
         <section id="about" class="scroll-mt-24 mx-auto grid max-w-7xl items-center gap-16 px-5 py-28 lg:grid-cols-2 lg:px-8 lg:py-32">
-            <div class="relative">
+            <div class="relative" data-reveal="left">
                 <div class="relative h-[400px] overflow-hidden rounded-[28px] sm:h-[480px]">
                     <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1100&q=85" alt="Healthcare professionals" class="h-full w-full object-cover">
                 </div>
@@ -299,7 +338,7 @@
                 </div>
             </div>
 
-            <div class="pt-5 lg:pt-0">
+            <div class="pt-5 lg:pt-0" data-reveal="right">
                 <div class="mb-5 flex items-center gap-3">
                     <span class="h-[2px] w-8 rounded-full bg-[#299B68]"></span>
                     <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#299B68]">WELCOME TO ANDROMEDA</span>
@@ -338,7 +377,7 @@
         <!-- SERVICES -->
         <section id="services" class="scroll-mt-24 bg-white py-24 sm:py-28">
             <div class="mx-auto max-w-7xl px-5 lg:px-8">
-                <div class="flex flex-col justify-between gap-7 md:flex-row md:items-end">
+                <div class="flex flex-col justify-between gap-7 md:flex-row md:items-end" data-reveal>
                     <div class="max-w-2xl">
                         <div class="mb-5 flex items-center gap-3">
                             <span class="h-[2px] w-8 rounded-full bg-[#299B68]"></span>
@@ -356,7 +395,11 @@
 
                 <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($services as $index => $service)
-                        <button type="button" @click="selectService('{{ $service['title'] }}')" class="group relative flex h-full flex-col rounded-2xl border border-[#E8EEE9] bg-[#F9FBF9] p-7 text-left transition duration-300 hover:-translate-y-2 hover:border-[#299B68]/40 hover:bg-white hover:shadow-[0_20px_45px_rgba(20,92,64,0.09)] sm:p-8">
+                        <button type="button" @click="selectService('{{ $service['title'] }}')" data-reveal style="--reveal-delay: {{ $index * 80 }}ms" class="group relative flex h-full flex-col rounded-2xl border border-[#E8EEE9] bg-[#F9FBF9] p-7 text-left transition duration-300 hover:-translate-y-2 hover:border-[#299B68]/40 hover:bg-white hover:shadow-[0_20px_45px_rgba(20,92,64,0.09)] sm:p-8">
+                            <div class="-mx-7 -mt-7 mb-6 h-44 overflow-hidden rounded-t-2xl sm:-mx-8 sm:-mt-8">
+                                <img src="{{ $service['image'] }}" alt="{{ $service['title'] }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+                            </div>
+
                             <div class="flex w-full items-center justify-between">
                                 <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EAF5EF] text-[#299B68] transition duration-300 group-hover:bg-[#145C40] group-hover:text-white">
                                     <i data-lucide="{{ $service['icon'] }}" class="w-7 h-7"></i>
@@ -385,7 +428,7 @@
         <!-- FEATURE / MATERNITY -->
         <section class="overflow-hidden bg-[#EAF5EF]">
             <div class="mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 lg:grid-cols-2 lg:px-8 lg:py-28">
-                <div>
+                <div data-reveal="left">
                     <div class="mb-5 flex items-center gap-3">
                         <span class="h-[2px] w-8 rounded-full bg-[#299B68]"></span>
                         <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#299B68]">EVERY NEW BEGINNING</span>
@@ -416,7 +459,7 @@
                     </div>
                 </div>
 
-                <div class="relative">
+                <div class="relative" data-reveal="right">
                     <div class="h-[360px] overflow-hidden rounded-[28px] sm:h-[470px]">
                         <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=1200&q=85" alt="Maternal healthcare" class="h-full w-full object-cover">
                     </div>
@@ -437,7 +480,7 @@
         <!-- WHY ANDROMEDA -->
         <section id="why-us" class="scroll-mt-24 bg-[#102F23] py-24 text-white sm:py-28">
             <div class="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-2 lg:items-center lg:px-8">
-                <div>
+                <div data-reveal="left">
                     <div class="mb-5 flex items-center gap-3">
                         <span class="h-[2px] w-8 rounded-full bg-[#299B68]"></span>
                         <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#8DDBAC]">WHY ANDROMEDA</span>
@@ -467,7 +510,7 @@
                 </div>
 
                 <!-- Interactive commitment slider -->
-                <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-7 sm:p-10">
+                <div class="rounded-[28px] border border-white/10 bg-white/[0.05] p-7 sm:p-10" data-reveal="right">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#8DDBAC]">OUR COMMITMENT</span>
                         <span class="text-sm font-semibold text-white/40" x-text="`0${activeCommitment + 1} / 03`"></span>
@@ -508,7 +551,7 @@
         <!-- APPOINTMENT -->
         <section id="appointment" class="scroll-mt-24 bg-[#F8FAF8] px-5 py-24 sm:py-28">
             <div class="mx-auto grid max-w-7xl items-start gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-                <div class="lg:sticky lg:top-32">
+                <div class="lg:sticky lg:top-32" data-reveal="left">
                     <div class="mb-5 flex items-center gap-3">
                         <span class="h-[2px] w-8 rounded-full bg-[#299B68]"></span>
                         <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#299B68]">YOUR HEALTH, OUR PRIORITY</span>
@@ -535,7 +578,7 @@
                 </div>
 
                 <!-- Appointment Form -->
-                <div class="rounded-3xl border border-[#E7EEE9] bg-white p-7 shadow-xl shadow-[#102F23]/5 sm:p-10">
+                <div class="rounded-3xl border border-[#E7EEE9] bg-white p-7 shadow-xl shadow-[#102F23]/5 sm:p-10" data-reveal="right">
                     <form @submit="handleBooking" class="space-y-6">
                         @csrf
                         <div class="grid gap-6 sm:grid-cols-2">
@@ -598,7 +641,7 @@
         <!-- FAQ SECTION -->
         <section class="bg-white py-24 sm:py-28">
             <div class="mx-auto max-w-4xl px-5 lg:px-8">
-                <div class="mx-auto max-w-2xl text-center">
+                <div class="mx-auto max-w-2xl text-center" data-reveal>
                     <div class="mb-5 flex items-center justify-center gap-3">
                         <span class="h-[2px] w-8 rounded-full bg-[#299B68]"></span>
                         <span class="text-xs font-bold uppercase tracking-[0.2em] text-[#299B68]">FREQUENTLY ASKED QUESTIONS</span>
@@ -608,7 +651,7 @@
 
                 <div class="mt-12 space-y-4">
                     @foreach($faqs as $index => $faq)
-                        <div class="rounded-2xl border border-[#E8EEE9] bg-[#F9FBF9] overflow-hidden transition">
+                        <div data-reveal style="--reveal-delay: {{ $index * 70 }}ms" class="rounded-2xl border border-[#E8EEE9] bg-[#F9FBF9] overflow-hidden transition">
                             <button type="button" @click="activeFaq = (activeFaq === {{ $index }} ? null : {{ $index }})" class="flex w-full items-center justify-between p-6 text-left text-base font-bold text-[#172B23]">
                                 <span>{{ $faq['question'] }}</span>
                                 <i data-lucide="chevron-down" class="w-5 h-5 text-[#299B68] transition-transform duration-200" :class="activeFaq === {{ $index }} ? 'rotate-180' : ''"></i>
@@ -678,6 +721,31 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+
+            const revealTargets = document.querySelectorAll('[data-reveal]');
+
+            if (
+                !revealTargets.length
+                || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                || !('IntersectionObserver' in window)
+            ) {
+                return;
+            }
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px',
+            });
+
+            document.documentElement.classList.add('has-scroll-reveal');
+            revealTargets.forEach((target) => revealObserver.observe(target));
         });
     </script>
 </body>
