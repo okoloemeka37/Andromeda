@@ -17,7 +17,7 @@
             'secondary' => 'Meet Our Hospital',
         ],
         [
-            'image' => 'images/andromeda-hospital-3.jpg',
+            'image' => 'https://images.pexels.com/photos/5452290/pexels-photo-5452290.jpeg?auto=compress&cs=tinysrgb&w=1600',
             'eyebrow' => 'YOUR HEALTH. OUR PRIORITY.',
             'title' => 'Consult with specialists alongside your partner.',
             'description' => 'Take the journey to better health together with attentive guidance, expert specialists, and care built around your family.',

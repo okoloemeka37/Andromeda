@@ -58,7 +58,7 @@
                 'secondary' => 'Explore Our Services',
             ],
             [
-                'image' => 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=1200&q=90',
+                'image' => 'images/andromeda-hospital-2.jpg',
                 'eyebrow' => 'COMPASSIONATE MEDICAL CARE',
                 'title' => 'Dedicated daily care for your complete wellbeing.',
                 'description' => 'From everyday medical needs and monitoring to specialised health routines, we are committed to supporting healthier lives at every stage.',
@@ -66,7 +66,7 @@
                 'secondary' => 'Meet Our Hospital',
             ],
             [
-                'image' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=90',
+                'image' => 'https://images.pexels.com/photos/5452290/pexels-photo-5452290.jpeg?auto=compress&cs=tinysrgb&w=1600',
                 'eyebrow' => 'YOUR HEALTH. OUR PRIORITY.',
                 'title' => 'Consult with specialists alongside your partner.',
                 'description' => 'Take the journey to better health together with attentive guidance, expert specialists, and care built around your family.',
@@ -78,7 +78,7 @@
         $services = [
             [
                 'icon' => 'baby',
-                'image' => 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=85',
+                'image' => 'https://images.pexels.com/photos/5561185/pexels-photo-5561185.jpeg?auto=compress&cs=tinysrgb&w=900',
                 'title' => 'Paediatric Care',
                 'description' => 'Thoughtful medical care for children, supporting their growth, development and overall wellbeing.',
                 'category' => 'Family Care',
@@ -92,32 +92,47 @@
             ],
             [
                 'icon' => 'heart-handshake',
-                'image' => 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=900&q=85',
+                'image' => 'https://images.pexels.com/photos/6991896/pexels-photo-6991896.jpeg?auto=compress&cs=tinysrgb&w=900',
                 'title' => 'Maternal Care',
                 'description' => 'Dedicated maternal healthcare throughout pregnancy, delivery and the postnatal journey.',
                 'category' => 'Family Care',
             ],
             [
                 'icon' => 'activity',
-                'image' => 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=85',
+                'image' => 'images/andromeda-hospital-2.jpg',
                 'title' => 'Physiotherapy',
                 'description' => 'Professional rehabilitation and physical therapy to support movement, recovery and mobility.',
                 'category' => 'Specialist Care',
             ],
             [
                 'icon' => 'stethoscope',
-                'image' => 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=85',
+                'image' => 'https://images.pexels.com/photos/5452290/pexels-photo-5452290.jpeg?auto=compress&cs=tinysrgb&w=900',
                 'title' => 'Internal Medicine',
                 'description' => 'Medical assessment, diagnosis and management of a wide range of adult health conditions.',
                 'category' => 'Specialist Care',
             ],
             [
                 'icon' => 'microscope',
-                'image' => 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=900&q=85',
+                'image' => 'https://images.pexels.com/photos/8515138/pexels-photo-8515138.jpeg?auto=compress&cs=tinysrgb&w=900',
                 'title' => 'Laboratory Services',
                 'description' => 'Medical laboratory investigations to support accurate diagnosis and informed healthcare.',
                 'category' => 'Diagnostics',
             ],
+        ];
+
+        $hmoPartners = [
+            ['name' => 'Bastion Health', 'image' => 'bastion-health.png'],
+            ['name' => 'Total Health Trust', 'image' => 'total-health-trust.png'],
+            ['name' => 'Greenshield HMO', 'image' => 'greenshield-hmo.png'],
+            ['name' => 'Wellness Healthcare', 'image' => 'wellness-healthcare.png'],
+            ['name' => 'NEM HMO', 'image' => 'nem-hmo.png'],
+            ['name' => 'Phillips HMO', 'image' => 'phillips-hmo.png'],
+            ['name' => 'AXA HMO', 'image' => 'axa-hmo.png'],
+            ['name' => 'Hygeia HMO', 'image' => 'hygeia-hmo.png'],
+            ['name' => 'Reliance HMO', 'image' => 'reliance-hmo.png'],
+            ['name' => 'Careline HMO', 'image' => 'careline-hmo.png'],
+            ['name' => 'Health HMO', 'image' => 'health-hmo.png'],
+            ['name' => 'Venus Medicare', 'image' => 'venus-medicare.png'],
         ];
 
         $commitments = [
@@ -317,11 +332,45 @@
             </div>
         </section>
 
+        <section aria-labelledby="hmo-partners-heading" class="mx-auto max-w-7xl px-5 py-14 lg:px-8 sm:py-16">
+            <div class="mx-auto max-w-2xl text-center" data-reveal>
+                <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#299B68]">HEALTH INSURANCE</p>
+                <h2 id="hmo-partners-heading" class="mt-3 text-3xl font-semibold tracking-tight text-[#172B23] sm:text-4xl">Our HMO Partners</h2>
+                <p class="mt-3 text-sm leading-7 text-[#718078] sm:text-base">We welcome members from a range of health insurance providers.</p>
+            </div>
+
+            <div class="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-6">
+                @foreach($hmoPartners as $index => $partner)
+                    <div data-reveal style="--reveal-delay: {{ ($index % 6) * 60 }}ms" class="flex h-24 items-center justify-center rounded-2xl border border-[#E7EEE9] bg-white px-4 py-5 transition duration-200 hover:-translate-y-1 hover:border-[#299B68]/40 hover:shadow-[0_12px_30px_rgba(20,92,64,0.08)] sm:h-28">
+                        <img src="{{ asset('images/hmo/' . $partner['image']) }}" alt="{{ $partner['name'] }} logo" loading="lazy" class="max-h-14 w-full object-contain">
+                    </div>
+                @endforeach
+            </div>
+        </section>
+
+        <section aria-label="Call Andromeda Hospital" class="mx-auto max-w-7xl px-5 pt-8 lg:px-8" data-reveal>
+            <div class="flex flex-col items-start gap-5 rounded-2xl bg-[#145C40] p-6 text-white shadow-[0_16px_40px_rgba(20,92,64,0.16)] sm:flex-row sm:items-center sm:justify-between sm:p-8">
+                <div class="flex items-center gap-4">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-[#A9E6C0]">
+                        <i data-lucide="phone-call" class="h-5 w-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#A9E6C0]">Need to speak with the hospital?</p>
+                        <p class="mt-1 text-sm leading-6 text-white/80">Call the team directly for urgent assistance or to confirm service availability.</p>
+                    </div>
+                </div>
+                <a href="tel:+2347019557057" class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#145C40] transition hover:bg-[#D8F3E2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto">
+                    <i data-lucide="phone" class="h-4 w-4"></i>
+                    Call +234 701 955 7057
+                </a>
+            </div>
+        </section>
+
         <!-- ABOUT -->
         <section id="about" class="scroll-mt-24 mx-auto grid max-w-7xl items-center gap-16 px-5 py-28 lg:grid-cols-2 lg:px-8 lg:py-32">
             <div class="relative" data-reveal="left">
                 <div class="relative h-[400px] overflow-hidden rounded-[28px] sm:h-[480px]">
-                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1100&q=85" alt="Healthcare professionals" class="h-full w-full object-cover">
+                    <img src="https://images.pexels.com/photos/5452224/pexels-photo-5452224.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Black healthcare professionals collaborating" class="h-full w-full object-cover">
                 </div>
 
                 <div class="absolute -bottom-7 -right-3 max-w-[240px] rounded-2xl bg-[#145C40] p-6 text-white shadow-2xl sm:-right-7 sm:max-w-[270px]">
@@ -461,7 +510,7 @@
 
                 <div class="relative" data-reveal="right">
                     <div class="h-[360px] overflow-hidden rounded-[28px] sm:h-[470px]">
-                        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=1200&q=85" alt="Maternal healthcare" class="h-full w-full object-cover">
+                        <img src="https://images.pexels.com/photos/6991896/pexels-photo-6991896.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Expectant mother holding her belly" class="h-full w-full object-cover">
                     </div>
 
                     <div class="absolute -bottom-5 -left-3 flex items-center gap-3 rounded-2xl bg-white p-5 shadow-xl sm:-left-7">
