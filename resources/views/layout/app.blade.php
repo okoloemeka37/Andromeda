@@ -138,10 +138,10 @@
         <nav aria-label="Mobile navigation" class="fixed bottom-3 left-3 right-3 z-[60] rounded-full border border-white/10 bg-[#102F23] p-1.5 shadow-[0_12px_35px_rgba(16,47,35,0.3)] lg:hidden">
             <div class="flex items-center justify-between gap-1">
                 @foreach($mobileNavLinks as $link)
-                    <a href="{{-- {{ route($link['href']) }} --}}"
-                       @click="activeMobileNav = '{{ $link['section'] }}'"
-                       :class="activeMobileNav === '{{ $link['section'] }}' ? 'bg-[#A9E6C0] text-[#102F23] shadow-sm' : 'text-white/80 hover:bg-[#D8F3E2] hover:text-[#145C40]'"
-                       class="group flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-full px-1 py-2 transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A9E6C0]"
+                    @php($isActive = $link['href'] !== '#appointment' && request()->routeIs($link['href']))
+                    <a href="{{ $link['href'] === '#appointment' ? route('home') . '#appointment' : route($link['href']) }}"
+                       @if($isActive) aria-current="page" @endif
+                       class="{{ $isActive ? 'bg-[#A9E6C0] text-[#102F23] shadow-sm' : 'text-white/80 hover:bg-[#D8F3E2] hover:text-[#145C40]' }} group flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-full px-1 py-2 transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A9E6C0]"
                        aria-label="{{ $link['label'] }}">
                         <i data-lucide="{{ $link['icon'] }}" class="h-5 w-5 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5"></i>
                         <span class="whitespace-nowrap text-[8px] font-semibold leading-none sm:text-[9px]">{{ $link['label'] }}</span>
